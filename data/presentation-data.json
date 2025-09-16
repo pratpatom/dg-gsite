@@ -1,0 +1,437 @@
+{
+  "meta": {
+    "title": "Customer Data Platform Modernization",
+    "presenter": "Sarah Johnson, IT Director",
+    "date": "2024-Q1",
+    "company": "TechCorp Inc.",
+    "theme": {
+      "primaryColor": "#2563eb",
+      "secondaryColor": "#3b82f6",
+      "accentColor": "#60a5fa",
+      "backgroundColor": "#f8fafc"
+    }
+  },
+  "slides": {
+    "slide1": {
+      "type": "title",
+      "title": "Customer Data Platform Modernization",
+      "subtitle": "Executive Project Overview",
+      "presenter": {
+        "name": "Sarah Johnson",
+        "title": "IT Director",
+        "department": "Technology"
+      },
+      "date": "March 2024",
+      "objective": "Modernize our customer data platform to improve efficiency, enhance analytics capabilities, and support 40% business growth over the next 3 years"
+    },
+    "slide2": {
+      "type": "strategic-alignment",
+      "title": "Strategic Alignment",
+      "subtitle": "Supporting Business Growth & Operational Excellence",
+      "alignments": [
+        {
+          "icon": "📈",
+          "category": "Revenue Growth",
+          "description": "Enable 40% customer acquisition growth",
+          "impact": "high",
+          "details": [
+            "Real-time customer insights for targeted campaigns",
+            "Improved conversion rates through personalization"
+          ]
+        },
+        {
+          "icon": "💰",
+          "category": "Cost Efficiency",
+          "description": "Reduce operational costs by 25%",
+          "impact": "high",
+          "details": [
+            "Automated data processing workflows",
+            "Reduced manual reporting effort by 60%"
+          ]
+        },
+        {
+          "icon": "🎯",
+          "category": "Customer Experience",
+          "description": "Enhance customer satisfaction & compliance",
+          "impact": "medium",
+          "details": [
+            "360° customer view for support teams",
+            "GDPR and data privacy compliance"
+          ]
+        }
+      ],
+      "corporateGoals": [
+        "Achieve $50M revenue target by Q4 2024",
+        "Maintain industry-leading customer satisfaction (>95%)"
+      ]
+    },
+    "slide3": {
+      "type": "scope-deliverables",
+      "title": "Scope & Deliverables",
+      "subtitle": "Clear boundaries and expected outcomes",
+      "included": [
+        {
+          "title": "Modern Data Warehouse",
+          "description": "Cloud-based analytics platform with real-time processing",
+          "status": "new"
+        },
+        {
+          "title": "Customer 360° Dashboard",
+          "description": "Unified view of customer interactions and preferences",
+          "status": "new"
+        },
+        {
+          "title": "API Integration Layer",
+          "description": "Seamless connection between existing systems",
+          "status": "upgrade"
+        },
+        {
+          "title": "Data Governance Framework",
+          "description": "Security, privacy, and compliance controls",
+          "status": "new"
+        },
+        {
+          "title": "Team Training & Documentation",
+          "description": "Comprehensive knowledge transfer and user guides",
+          "status": "new"
+        }
+      ],
+      "excluded": [
+        "CRM system replacement (separate project)",
+        "Legacy system decommissioning (Phase 2)",
+        "Advanced AI/ML analytics (future roadmap)",
+        "Mobile application development"
+      ],
+      "transformation": {
+        "before": {
+          "title": "Current State",
+          "points": [
+            "Siloed data across 8 systems",
+            "Manual reporting (48+ hours/week)",
+            "Limited customer insights",
+            "Compliance gaps"
+          ]
+        },
+        "after": {
+          "title": "Future State",
+          "points": [
+            "Unified data platform",
+            "Automated real-time reporting",
+            "360° customer analytics",
+            "Full regulatory compliance"
+          ]
+        }
+      }
+    },
+    "slide4": {
+      "type": "timeline-milestones",
+      "title": "Timeline & Milestones",
+      "subtitle": "6-month delivery roadmap",
+      "startDate": "2024-04-01",
+      "endDate": "2024-10-31",
+      "phases": [
+        {
+          "name": "Foundation",
+          "startDate": "2024-04-01",
+          "endDate": "2024-05-31",
+          "color": "#ef4444",
+          "milestones": [
+            {
+              "title": "Project Kickoff",
+              "date": "2024-04-15",
+              "type": "start"
+            },
+            {
+              "title": "Infrastructure Setup",
+              "date": "2024-05-15",
+              "type": "delivery"
+            }
+          ]
+        },
+        {
+          "name": "Development",
+          "startDate": "2024-06-01",
+          "endDate": "2024-08-31",
+          "color": "#f59e0b",
+          "milestones": [
+            {
+              "title": "Data Pipeline MVP",
+              "date": "2024-06-30",
+              "type": "delivery"
+            },
+            {
+              "title": "Dashboard Beta",
+              "date": "2024-08-15",
+              "type": "delivery"
+            }
+          ]
+        },
+        {
+          "name": "Testing & Deployment",
+          "startDate": "2024-09-01",
+          "endDate": "2024-10-31",
+          "color": "#10b981",
+          "milestones": [
+            {
+              "title": "User Acceptance Testing",
+              "date": "2024-09-15",
+              "type": "milestone"
+            },
+            {
+              "title": "Go-Live",
+              "date": "2024-10-15",
+              "type": "completion"
+            }
+          ]
+        }
+      ]
+    },
+    "slide5": {
+      "type": "budget-resources",
+      "title": "Budget & Resources",
+      "subtitle": "Investment breakdown and resource allocation",
+      "totalBudget": 485000,
+      "currency": "USD",
+      "budgetBreakdown": [
+        {
+          "category": "Personnel",
+          "amount": 245000,
+          "percentage": 50.5,
+          "color": "#3b82f6",
+          "details": [
+            "2 Full-time developers (6 months)",
+            "1 Data architect (4 months)",
+            "1 Project manager (6 months)"
+          ]
+        },
+        {
+          "category": "Technology",
+          "amount": 145000,
+          "percentage": 29.9,
+          "color": "#10b981",
+          "details": [
+            "Cloud infrastructure (AWS)",
+            "Software licenses",
+            "Data integration tools"
+          ]
+        },
+        {
+          "category": "External Vendors",
+          "amount": 70000,
+          "percentage": 14.4,
+          "color": "#f59e0b",
+          "details": [
+            "Implementation consulting",
+            "Security audit",
+            "Training services"
+          ]
+        },
+        {
+          "category": "Contingency",
+          "amount": 25000,
+          "percentage": 5.2,
+          "color": "#ef4444",
+          "details": [
+            "Risk mitigation buffer",
+            "Scope adjustments"
+          ]
+        }
+      ],
+      "resourceNeeds": {
+        "internal": [
+          {
+            "role": "Technical Lead",
+            "commitment": "100%",
+            "duration": "6 months",
+            "status": "confirmed"
+          },
+          {
+            "role": "Business Analyst",
+            "commitment": "50%",
+            "duration": "4 months",
+            "status": "confirmed"
+          },
+          {
+            "role": "QA Engineer",
+            "commitment": "75%",
+            "duration": "3 months",
+            "status": "pending"
+          }
+        ],
+        "external": [
+          {
+            "vendor": "DataTech Solutions",
+            "service": "Platform Implementation",
+            "duration": "4 months",
+            "status": "contracted"
+          },
+          {
+            "vendor": "SecureAudit Corp",
+            "service": "Security & Compliance Review",
+            "duration": "2 weeks",
+            "status": "pending"
+          }
+        ]
+      },
+      "fundingStatus": "approved"
+    },
+    "slide6": {
+      "type": "risks-dependencies",
+      "title": "Risks & Dependencies",
+      "subtitle": "Proactive risk management and critical dependencies",
+      "risks": [
+        {
+          "id": "R001",
+          "title": "Data Migration Complexity",
+          "description": "Legacy system data quality issues",
+          "probability": "medium",
+          "impact": "high",
+          "riskLevel": "high",
+          "mitigation": "Comprehensive data audit and cleansing plan",
+          "owner": "Data Team",
+          "status": "monitoring"
+        },
+        {
+          "id": "R002",
+          "title": "Vendor Delivery Delays",
+          "description": "Third-party integration timeline risks",
+          "probability": "low",
+          "impact": "medium",
+          "riskLevel": "medium",
+          "mitigation": "Alternative vendor identified, penalty clauses in contract",
+          "owner": "Procurement",
+          "status": "mitigated"
+        },
+        {
+          "id": "R003",
+          "title": "Resource Availability",
+          "description": "Key personnel competing priorities",
+          "probability": "medium",
+          "impact": "medium",
+          "riskLevel": "medium",
+          "mitigation": "Cross-training and temporary contractor backup",
+          "owner": "PMO",
+          "status": "active"
+        },
+        {
+          "id": "R004",
+          "title": "Regulatory Changes",
+          "description": "New compliance requirements during project",
+          "probability": "low",
+          "impact": "high",
+          "riskLevel": "medium",
+          "mitigation": "Flexible architecture design, compliance monitoring",
+          "owner": "Legal Team",
+          "status": "monitoring"
+        },
+        {
+          "id": "R005",
+          "title": "Performance Requirements",
+          "description": "System performance under peak load",
+          "probability": "medium",
+          "impact": "low",
+          "riskLevel": "low",
+          "mitigation": "Load testing and performance optimization",
+          "owner": "Technical Team",
+          "status": "planned"
+        }
+      ],
+      "dependencies": [
+        {
+          "title": "CRM System Upgrade",
+          "description": "Dependent on Q2 CRM project completion",
+          "status": "on-track",
+          "owner": "Sales Operations",
+          "criticalPath": true
+        },
+        {
+          "title": "Network Infrastructure",
+          "description": "Requires dedicated bandwidth provisioning",
+          "status": "approved",
+          "owner": "IT Infrastructure",
+          "criticalPath": false
+        },
+        {
+          "title": "Compliance Framework",
+          "description": "Legal team policy approval required",
+          "status": "pending",
+          "owner": "Legal Department",
+          "criticalPath": true
+        }
+      ]
+    },
+    "slide7": {
+      "type": "ask-next-steps",
+      "title": "Decision Points & Next Steps",
+      "subtitle": "Seeking executive approval to proceed",
+      "decisions": [
+        {
+          "title": "Project Approval",
+          "description": "Authorize project initiation and budget allocation",
+          "status": "pending",
+          "priority": "critical",
+          "deadline": "2024-03-30"
+        },
+        {
+          "title": "Resource Allocation",
+          "description": "Confirm internal team availability and external partnerships",
+          "status": "pending",
+          "priority": "high",
+          "deadline": "2024-04-05"
+        },
+        {
+          "title": "Budget Confirmation",
+          "description": "Final approval of $485K budget allocation",
+          "status": "pending",
+          "priority": "critical",
+          "deadline": "2024-03-30"
+        },
+        {
+          "title": "Governance Structure",
+          "description": "Establish steering committee and reporting cadence",
+          "status": "pending",
+          "priority": "medium",
+          "deadline": "2024-04-10"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Finalize vendor contracts",
+          "owner": "Procurement Team",
+          "deadline": "2024-04-08",
+          "status": "ready"
+        },
+        {
+          "action": "Assemble project team",
+          "owner": "PMO & HR",
+          "deadline": "2024-04-12",
+          "status": "ready"
+        },
+        {
+          "action": "Setup project infrastructure",
+          "owner": "IT Operations",
+          "deadline": "2024-04-15",
+          "status": "waiting"
+        },
+        {
+          "action": "Stakeholder communication plan",
+          "owner": "Change Management",
+          "deadline": "2024-04-10",
+          "status": "ready"
+        }
+      ],
+      "contactInfo": {
+        "projectSponsor": {
+          "name": "Michael Chen",
+          "title": "VP of Technology",
+          "email": "mchen@techcorp.com"
+        },
+        "projectManager": {
+          "name": "Sarah Johnson",
+          "title": "IT Director", 
+          "email": "sjohnson@techcorp.com"
+        }
+      }
+    }
+  }
+}

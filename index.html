@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Presentation Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        .slide-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .slide-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 0.5s ease;
+        }
+        .fade-enter-from, .fade-leave-to {
+            opacity: 0;
+        }
+        
+        /* Loading animation */
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Navigation buttons */
+        .nav-button {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
+        }
+        
+        .nav-button:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.05);
+        }
+        
+        /* Slide navigation dots */
+        .slide-nav-btn:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        /* Better mobile responsiveness */
+        @media (max-width: 768px) {
+            .slide-nav-dots {
+                display: none;
+            }
+            .slide-counter {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+            .slide-image {
+                max-height: 85vh;
+            }
+        }
+        
+        /* Image loading state */
+        .image-loading {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div id="app">
+        <div class="relative w-full h-screen overflow-hidden">
+            <!-- Navigation Dots -->
+            <nav class="absolute top-4 right-4 z-50 flex space-x-2 slide-nav-dots" aria-label="Slide navigation">
+                <button 
+                    v-for="(slide, index) in slides" 
+                    :key="index"
+                    @click="goToSlide(index)"
+                    class="w-3 h-3 rounded-full transition-all duration-300 slide-nav-btn"
+                    :class="currentSlide === index ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'"
+                    :aria-label="`Go to slide ${index + 1}`"
+                    :aria-pressed="currentSlide === index"
+                ></button>
+            </nav>
+
+            <!-- Slide Counter -->
+            <div class="absolute bottom-4 right-4 z-50 text-sm text-gray-600 bg-white bg-opacity-90 px-3 py-1 rounded-full shadow slide-counter backdrop-blur-sm">
+                {{ currentSlide + 1 }} / {{ slides.length }}
+            </div>
+
+            <!-- Main Slide Container -->
+            <div class="relative w-full h-full">
+                <div v-if="isLoading" class="flex items-center justify-center h-full">
+                    <div class="text-center">
+                        <div class="loading-spinner w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+                        <p class="text-gray-600">Loading presentation...</p>
+                    </div>
+                </div>
+                <transition v-else name="fade" mode="out-in">
+                    <div 
+                        :key="currentSlide"
+                        class="slide-container"
+                        ref="slideContainer"
+                    >
+                        <img 
+                            :src="currentSlideImage"
+                            :alt="`Slide ${currentSlide + 1}`"
+                            class="slide-image"
+                            :class="{ 'image-loading': imageLoading }"
+                            @load="onImageLoad"
+                            @error="onImageError"
+                        />
+                    </div>
+                </transition>
+            </div>
+
+            <!-- Navigation Arrows -->
+            <button 
+                v-if="currentSlide > 0"
+                @click="previousSlide"
+                class="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 nav-button rounded-full p-3 shadow-lg"
+                aria-label="Previous slide"
+            >
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            
+            <button 
+                v-if="currentSlide < slides.length - 1"
+                @click="nextSlide"
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 z-50 nav-button rounded-full p-3 shadow-lg"
+                aria-label="Next slide"
+            >
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+
+            <!-- Error Message -->
+            <div v-if="hasError" class="absolute inset-0 flex items-center justify-center z-40">
+                <div class="bg-white rounded-lg p-8 shadow-lg text-center max-w-md">
+                    <div class="text-red-500 text-4xl mb-4">⚠️</div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Image Not Found</h3>
+                    <p class="text-gray-600 text-sm">{{ errorMessage }}</p>
+                    <button 
+                        @click="retryLoad"
+                        class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                    >
+                        Retry
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        const { createApp, ref, computed, onMounted, onUnmounted, nextTick } = Vue;
+
+        createApp({
+            setup() {
+                const currentSlide = ref(0);
+                const isLoading = ref(true);
+                const imageLoading = ref(false);
+                const hasError = ref(false);
+                const errorMessage = ref('');
+
+                // Define your slide images here - you can modify this array
+                // Supports: .jpg, .jpeg, .png, .webp, .svg
+                const slideImages = ref([
+                    './assets/slide1.png',
+                    './assets/slide2.png',
+                    './assets/slide3.png',
+                    './assets/slide4.png',
+                    './assets/slide5.png',
+                    './assets/slide6.png',
+                    './assets/slide7.png'
+                ]);
+
+                const slides = computed(() => slideImages.value);
+
+                const currentSlideImage = computed(() => {
+                    return slides.value[currentSlide.value] || './assets/placeholder.jpg';
+                });
+
+                const nextSlide = () => {
+                    if (currentSlide.value < slides.value.length - 1) {
+                        currentSlide.value++;
+                        animateSlideTransition();
+                    }
+                };
+
+                const previousSlide = () => {
+                    if (currentSlide.value > 0) {
+                        currentSlide.value--;
+                        animateSlideTransition();
+                    }
+                };
+
+                const goToSlide = (index) => {
+                    if (index >= 0 && index < slides.value.length && index !== currentSlide.value) {
+                        currentSlide.value = index;
+                        animateSlideTransition();
+                    }
+                };
+
+                const animateSlideTransition = () => {
+                    // Reset any error state when changing slides
+                    hasError.value = false;
+                    imageLoading.value = true;
+                };
+
+                const onImageLoad = () => {
+                    imageLoading.value = false;
+                    hasError.value = false;
+                    
+                    // Animate image entrance
+                    nextTick(() => {
+                        const img = document.querySelector('.slide-image');
+                        if (img) {
+                            gsap.fromTo(img, 
+                                { 
+                                    opacity: 0, 
+                                    scale: 0.95,
+                                    y: 20
+                                },
+                                { 
+                                    opacity: 1, 
+                                    scale: 1,
+                                    y: 0,
+                                    duration: 0.6,
+                                    ease: "power2.out"
+                                }
+                            );
+                        }
+                    });
+                };
+
+                const onImageError = () => {
+                    imageLoading.value = false;
+                    hasError.value = true;
+                    errorMessage.value = `Unable to load slide ${currentSlide.value + 1}`;
+                };
+
+                const retryLoad = () => {
+                    hasError.value = false;
+                    imageLoading.value = true;
+                    // Force image reload by updating the src
+                    const img = document.querySelector('.slide-image');
+                    if (img) {
+                        const src = img.src;
+                        img.src = '';
+                        img.src = src;
+                    }
+                };
+
+                // Keyboard navigation
+                const handleKeyPress = (event) => {
+                    // Don't interfere if user is typing in an input
+                    if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+                        return;
+                    }
+
+                    switch(event.key) {
+                        case 'ArrowRight':
+                        case ' ':
+                        case 'PageDown':
+                            event.preventDefault();
+                            nextSlide();
+                            break;
+                        case 'ArrowLeft':
+                        case 'PageUp':
+                            event.preventDefault();
+                            previousSlide();
+                            break;
+                        case 'Home':
+                            event.preventDefault();
+                            goToSlide(0);
+                            break;
+                        case 'End':
+                            event.preventDefault();
+                            goToSlide(slides.value.length - 1);
+                            break;
+                        case 'Escape':
+                            // Close any error dialogs
+                            hasError.value = false;
+                            break;
+                    }
+                };
+
+                // Touch/swipe support for mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                const handleTouchStart = (event) => {
+                    touchStartX = event.changedTouches[0].screenX;
+                };
+
+                const handleTouchEnd = (event) => {
+                    touchEndX = event.changedTouches[0].screenX;
+                    handleSwipe();
+                };
+
+                const handleSwipe = () => {
+                    const swipeThreshold = 50; // minimum distance for a swipe
+                    const diff = touchStartX - touchEndX;
+
+                    if (Math.abs(diff) > swipeThreshold) {
+                        if (diff > 0) {
+                            // Swiped left - next slide
+                            nextSlide();
+                        } else {
+                            // Swiped right - previous slide
+                            previousSlide();
+                        }
+                    }
+                };
+
+                // Initialize the app
+                onMounted(() => {
+                    // Setup event listeners
+                    document.addEventListener('keydown', handleKeyPress);
+                    document.addEventListener('touchstart', handleTouchStart);
+                    document.addEventListener('touchend', handleTouchEnd);
+                    
+                    // Initial load
+                    isLoading.value = false;
+                    imageLoading.value = true;
+                });
+
+                // Cleanup
+                onUnmounted(() => {
+                    document.removeEventListener('keydown', handleKeyPress);
+                    document.removeEventListener('touchstart', handleTouchStart);
+                    document.removeEventListener('touchend', handleTouchEnd);
+                });
+
+                return {
+                    currentSlide,
+                    isLoading,
+                    imageLoading,
+                    hasError,
+                    errorMessage,
+                    slides,
+                    currentSlideImage,
+                    nextSlide,
+                    previousSlide,
+                    goToSlide,
+                    onImageLoad,
+                    onImageError,
+                    retryLoad
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
