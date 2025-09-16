@@ -183,19 +183,31 @@
                 const hasError = ref(false);
                 const errorMessage = ref('');
 
+                // Function to convert GitHub blob URLs to raw URLs
+                const convertGitHubUrl = (url) => {
+                    // Check if it's a GitHub blob URL
+                    if (url.includes('github.com') && url.includes('/blob/')) {
+                        // Convert from: https://github.com/user/repo/blob/branch/path
+                        // To: https://raw.githubusercontent.com/user/repo/branch/path
+                        return url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+                    }
+                    return url;
+                };
+
                 // Define your slide images here - you can modify this array
-                // Supports: .jpg, .jpeg, .png, .webp, .svg
+                // Supports: local paths, GitHub URLs, and direct URLs
+                // Formats: .jpg, .jpeg, .png, .webp, .svg
+                // 
+                // GitHub URLs will be automatically converted from blob to raw format:
+                // From: https://github.com/user/repo/blob/branch/path/file.png
+                // To:   https://raw.githubusercontent.com/user/repo/branch/path/file.png
                 const slideImages = ref([
                     './assets/slide1.png',
                     './assets/slide2.png',
-                    './assets/slide3.png',
-                    './assets/slide4.png',
-                    './assets/slide5.png',
-                    './assets/slide6.png',
-                    './assets/slide7.png'
+                    'https://github.com/pratpatom/dg-gsite/blob/dev/assets/slide1.png'
                 ]);
 
-                const slides = computed(() => slideImages.value);
+                const slides = computed(() => slideImages.value.map(convertGitHubUrl));
 
                 const currentSlideImage = computed(() => {
                     return slides.value[currentSlide.value] || './assets/placeholder.jpg';
