@@ -114,7 +114,7 @@
       "title": "ปัญหา/อุปสรรค",
       "items": [
         {
-          "category": "ความท้าทาย",
+          "category": "ความท้าทายทางเทคนิค",
           "description": "1. การเพิ่ม Interaction ให้กับ Data visualization\n2. ความรวดเร็วในการแก้ไข Data visualization"
         }
       ]
@@ -124,11 +124,11 @@
       "items": [
         {
           "category": "ด้านบุคลากร",
-          "description": "ทักษะการเขียนโปรแกรมของทีมที่เพิ่มมากขึ้น"
+          "description": "พัฒนาทักษะการเขียนโปรแกรมของทีมทีมอย่างต่อเนื่อง"
         },
         {
           "category": "ด้านเทคโนโลยี",
-          "description": "ใช้เทคโนโลยีที่เป็นที่ยอมรับ มีแหล่งศึกษาข้อมูลจำนวนมาก และการใช้ Automation deploy process"
+          "description": "เลือกใช้เทคโนโลยีที่เป็นที่ยอมรับ มีแหล่งศึกษาข้อมูลจำนวนมาก และการใช้ Automation deploy process"
         }
       ]
     }
