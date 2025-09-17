@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายงานผลการดำเนินงานด้านรัฐบาลดิจิทัล</title>
+    
+    <!-- CDN Libraries -->
+    <script src="https://unpkg.com/vue@3.4.0/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Sarabun', sans-serif;
+        }
+        
+        .slide-in {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .progress-ring {
+            transition: stroke-dasharray 1.5s ease-in-out;
+        }
+        
+        .executive-shadow {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .completion-badge {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        
+        .activity-card {
+            transition: all 0.3s ease;
+            border-left: 5px solid transparent;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-2px);
+            border-left-color: #667eea;
+        }
+        
+        .performance-item {
+            border-left: 3px solid #e5e7eb;
+            transition: border-color 0.3s ease;
+        }
+        
+        .performance-item:hover {
+            border-left-color: #667eea;
+        }
+        
+        .issue-alert {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="app">
+        <!-- Loading State -->
+        <div v-if="loading" class="flex items-center justify-center min-h-screen">
+            <div class="text-center">
+                <div class="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600">กำลังโหลดข้อมูล...</p>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div v-else class="min-h-screen">
+            <!-- Header Section -->
+            <header class="gradient-bg text-white">
+                <div class="max-w-7xl mx-auto px-6 py-12">
+                    <div class="text-center slide-in" ref="headerRef">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                            รายงานผลการดำเนินงาน
+                        </h1>
+                        <h2 class="text-2xl md:text-3xl font-medium mb-6">
+                            ด้านรัฐบาลดิจิทัล
+                        </h2>
+                        <div class="text-lg opacity-90">
+                            กองนวัตกรรมและวิจัย กรมควบคุมโรค
+                        </div>
+                        <div class="text-base opacity-80 mt-2">
+                            ประจำปีงบประมาณ {{ currentYear }}
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Overview Dashboard -->
+            <section class="py-12 bg-white">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="text-center mb-12 slide-in" ref="overviewRef">
+                        <h3 class="text-3xl font-bold text-gray-800 mb-4">ภาพรวมผลการดำเนินงาน</h3>
+                        <p class="text-lg text-gray-600">สรุปผลงานทั้งหมด {{ activities.length }} กิจกรรม</p>
+                    </div>
+
+                    <!-- Summary Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                        <!-- Total Activities -->
+                        <div class="bg-white executive-shadow rounded-2xl p-8 text-center slide-in activity-summary-card">
+                            <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full bg-blue-100">
+                                <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                </svg>
+                            </div>
+                            <div class="text-4xl font-bold text-gray-800 mb-2">{{ activities.length }}</div>
+                            <div class="text-lg text-gray-600">กิจกรรมทั้งหมด</div>
+                        </div>
+
+                        <!-- Completion Rate -->
+                        <div class="bg-white executive-shadow rounded-2xl p-8 text-center slide-in activity-summary-card">
+                            <div class="w-20 h-20 mx-auto mb-6 relative">
+                                <svg class="w-20 h-20 transform -rotate-90" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="40" stroke="#e5e7eb" stroke-width="8" fill="none"></circle>
+                                    <circle 
+                                        cx="50" cy="50" r="40" 
+                                        stroke="#10b981" 
+                                        stroke-width="8" 
+                                        fill="none"
+                                        :stroke-dasharray="completionCircumference"
+                                        :stroke-dashoffset="completionOffset"
+                                        class="progress-ring"
+                                        stroke-linecap="round">
+                                    </circle>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-xl font-bold text-green-600">{{ completionRate }}%</span>
+                                </div>
+                            </div>
+                            <div class="text-lg text-gray-600">อัตราการดำเนินงานเสร็จสิ้น</div>
+                        </div>
+
+                        <!-- Issues Count -->
+                        <div class="bg-white executive-shadow rounded-2xl p-8 text-center slide-in activity-summary-card">
+                            <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center rounded-full bg-orange-100">
+                                <svg class="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                </svg>
+                            </div>
+                            <div class="text-4xl font-bold text-gray-800 mb-2">{{ issuesCount }}</div>
+                            <div class="text-lg text-gray-600">ประเด็นที่ต้องติดตาม</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Activities Detail -->
+            <section class="py-12 bg-gray-50">
+                <div class="max-w-7xl mx-auto px-6">
+                    <div class="text-center mb-12 slide-in" ref="activitiesHeaderRef">
+                        <h3 class="text-3xl font-bold text-gray-800 mb-4">รายละเอียดการดำเนินงาน</h3>
+                        <p class="text-lg text-gray-600">ผลการดำเนินงานแยกตามกิจกรรม</p>
+                    </div>
+
+                    <!-- Activity Cards -->
+                    <div class="space-y-8">
+                        <activity-card 
+                            v-for="(activity, index) in activities" 
+                            :key="index"
+                            :activity="activity"
+                            :index="index">
+                        </activity-card>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="bg-gray-800 text-white py-8">
+                <div class="max-w-7xl mx-auto px-6 text-center">
+                    <p class="text-lg mb-2">กองนวัตกรรมและวิจัย กรมควบคุมโรค</p>
+                    <p class="text-gray-400">กระทรวงสาธารณสุข</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script type="module">
+        const { createApp, ref, onMounted, computed } = Vue;
+
+        // Activity Card Component
+        const ActivityCard = {
+            props: ['activity', 'index'],
+            template: `
+                <div class="bg-white executive-shadow rounded-2xl overflow-hidden activity-card" ref="cardRef">
+                    <!-- Card Header -->
+                    <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h4 class="text-xl font-semibold mb-2">{{ activity.activity }}</h4>
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex items-center">
+                                        <span class="text-sm opacity-90">แผนงาน:</span>
+                                        <span class="ml-2 font-medium">{{ activity.planned_steps['12_months'] }} ขั้นตอน</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="text-sm opacity-90">ดำเนินการ:</span>
+                                        <span class="ml-2 font-medium">{{ activity.completed_steps['12_months'] }} ขั้นตอน</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ml-6">
+                                <div class="completion-badge text-white px-4 py-2 rounded-full text-sm font-medium">
+                                    {{ activityCompletionRate }}% เสร็จสิ้น
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-6">
+                        <!-- Performance Reports -->
+                        <div class="mb-6" v-if="activity.performance_report && activity.performance_report.length > 0">
+                            <h5 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                                <svg class="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                ผลการดำเนินงาน
+                            </h5>
+                            <div class="space-y-3">
+                                <div 
+                                    v-for="(report, reportIndex) in activity.performance_report" 
+                                    :key="reportIndex"
+                                    class="performance-item pl-4 py-3 bg-gray-50 rounded-lg">
+                                    <div v-if="report.step" class="text-sm font-medium text-blue-600 mb-1">{{ report.step }}</div>
+                                    <div class="text-gray-700 leading-relaxed">{{ report.detail }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Issues -->
+                        <div v-if="activity.unplanned_issues" class="mt-6">
+                            <h5 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                                <svg class="w-5 h-5 text-orange-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                </svg>
+                                ประเด็นที่ต้องติดตาม
+                            </h5>
+                            <div class="issue-alert text-white p-4 rounded-lg">
+                                <div class="leading-relaxed">{{ activity.unplanned_issues }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            setup(props) {
+                const cardRef = ref(null);
+
+                const activityCompletionRate = computed(() => {
+                    const planned = props.activity.planned_steps['12_months'];
+                    const completed = props.activity.completed_steps['12_months'];
+                    return Math.round((completed / planned) * 100);
+                });
+
+                onMounted(() => {
+                    if (cardRef.value) {
+                        gsap.fromTo(cardRef.value,
+                            { opacity: 0, y: 50 },
+                            { 
+                                opacity: 1, 
+                                y: 0, 
+                                duration: 0.8, 
+                                delay: props.index * 0.2,
+                                ease: "power3.out"
+                            }
+                        );
+                    }
+                });
+
+                return {
+                    cardRef,
+                    activityCompletionRate
+                };
+            }
+        };
+
+        // Main App
+        const app = createApp({
+            components: {
+                'activity-card': ActivityCard
+            },
+            setup() {
+                const activities = ref([]);
+                const loading = ref(true);
+                const headerRef = ref(null);
+                const overviewRef = ref(null);
+                const activitiesHeaderRef = ref(null);
+
+                const currentYear = new Date().getFullYear() + 543; // Thai Buddhist year
+
+                const completionRate = computed(() => {
+                    if (activities.value.length === 0) return 0;
+                    const totalPlanned = activities.value.reduce((sum, activity) => 
+                        sum + activity.planned_steps['12_months'], 0);
+                    const totalCompleted = activities.value.reduce((sum, activity) => 
+                        sum + activity.completed_steps['12_months'], 0);
+                    return Math.round((totalCompleted / totalPlanned) * 100);
+                });
+
+                const issuesCount = computed(() => {
+                    return activities.value.filter(activity => activity.unplanned_issues).length;
+                });
+
+                const completionCircumference = computed(() => {
+                    return 2 * Math.PI * 40; // radius = 40
+                });
+
+                const completionOffset = computed(() => {
+                    const rate = completionRate.value;
+                    return completionCircumference.value - (rate / 100) * completionCircumference.value;
+                });
+
+                const loadData = async () => {
+                    try {
+                        const response = await fetch('./data/digital_gov_data.json');
+                        activities.value = await response.json();
+                        loading.value = false;
+                        
+                        // Animate sections sequentially
+                        setTimeout(() => animateElements(), 100);
+                    } catch (error) {
+                        console.error('Error loading data:', error);
+                        loading.value = false;
+                    }
+                };
+
+                const animateElements = () => {
+                    // Header animation
+                    if (headerRef.value) {
+                        gsap.fromTo(headerRef.value,
+                            { opacity: 0, y: -30 },
+                            { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
+                        );
+                    }
+
+                    // Overview section
+                    if (overviewRef.value) {
+                        gsap.fromTo(overviewRef.value,
+                            { opacity: 0, y: 30 },
+                            { opacity: 1, y: 0, duration: 0.8, delay: 0.3, ease: "power3.out" }
+                        );
+                    }
+
+                    // Summary cards
+                    gsap.fromTo('.activity-summary-card',
+                        { opacity: 0, y: 50, scale: 0.9 },
+                        { 
+                            opacity: 1, 
+                            y: 0, 
+                            scale: 1, 
+                            duration: 0.8, 
+                            delay: 0.6,
+                            stagger: 0.2,
+                            ease: "back.out(1.7)"
+                        }
+                    );
+
+                    // Activities header
+                    if (activitiesHeaderRef.value) {
+                        gsap.fromTo(activitiesHeaderRef.value,
+                            { opacity: 0, y: 30 },
+                            { opacity: 1, y: 0, duration: 0.8, delay: 1.2, ease: "power3.out" }
+                        );
+                    }
+                };
+
+                onMounted(() => {
+                    loadData();
+                });
+
+                return {
+                    activities,
+                    loading,
+                    currentYear,
+                    completionRate,
+                    issuesCount,
+                    completionCircumference,
+                    completionOffset,
+                    headerRef,
+                    overviewRef,
+                    activitiesHeaderRef
+                };
+            }
+        });
+
+        app.mount('#app');
+    </script>
+</body>
+</html>
