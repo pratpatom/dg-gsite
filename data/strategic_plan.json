@@ -1,0 +1,141 @@
+{
+  "digital_readiness_plan": {
+    "unit": "กองนวัตกรรมและวิจัย",
+    "plan_period": "2568-2570",
+    "indicators": [
+      {
+        "indicator_name": "แนวนโยบายและหลักปฏิบัติ (Policies & Practices)",
+        "activities": [
+          {
+            "activity_id": "1",
+            "activity_name": "กำหนดนโยบายและแนวปฏิบัติของหน่วยงานตามกรอบการดำเนินงานพัฒนารัฐบาลดิจิทัล",
+            "target_group": "คณะทำงานที่เกี่ยวข้อง",
+            "responsible_person": "คณะทำงานด้านนโยบายและงานบริหาร",
+            "expected_outcome": "หน่วยงานมีนโยบายดิจิทัลที่ชัดเจน และสามารถสื่อสารให้ทุกฝ่ายเข้าใจตรงกัน"
+          },
+          {
+            "activity_id": "2",
+            "activity_name": "กำกับติดตามประเมินผลแผนความพร้อมรัฐบาลดิจิทัลของหน่วยงาน (Monitoring & Evaluation)",
+            "target_group": "คณะทำงานที่เกี่ยวข้อง",
+            "responsible_person": "คณะทำงานด้านนโยบายและงานบริหาร",
+            "expected_outcome": "ตรวจสอบความก้าวหน้า ของการดำเนินงานตามแผนพัฒนารัฐบาลดิจิทัลได้อย่างเป็นระบบและต่อเนื่อง"
+          }
+        ]
+      },
+      {
+        "indicator_name": "กระบวนการพัฒนาด้วยข้อมูล (Data-driven Practices)",
+        "activities": [
+          {
+            "activity_id": "1",
+            "activity_name": "สร้าง Data-Driven Culture ในหน่วยงาน(พัฒนา Data Steward ประจำกลุ่มงาน)",
+            "target_group": "ทุกกลุ่มงาน",
+            "responsible_person": "คณะทำงาน Data Steward",
+            "expected_outcome": "กลุ่มงานต่าง ๆ มีการแลกเปลี่ยนข้อมูลและทำงานร่วมกันมากขึ้น เพื่อบรรลุเป้าหมายร่วมกัน"
+          },
+          {
+            "activity_id": "2",
+            "activity_name": "สร้างกรอบการจัดการข้อมูลที่มีประสิทธิภาพภายในหน่วยงาน",
+            "target_group": "ทุกกลุ่มงาน",
+            "responsible_person": "คณะทำงาน Data Steward และ Data Protection",
+            "expected_outcome": "มีมาตรฐานการจัดเก็บ จัดการ การใช้ข้อมูล และตรวจสอบคุณภาพข้อมูล"
+          },
+          {
+            "activity_id": "3",
+            "activity_name": "พัฒนา Data Infrastructure และการวิเคราะห์ข้อมูล",
+            "target_group": null,
+            "responsible_person": "คณะทำงาน Data Steward",
+            "expected_outcome": "มี Data Lake/ Data Warehouse รองรับข้อมูลทั้งในและนอกหน่วยงานมี Real-time Analytics"
+          }
+        ]
+      },
+      {
+        "indicator_name": "ศักยภาพเจ้าหน้าที่ภาครัฐด้านดิจิทัล (Digital Capability)",
+        "activities": [
+          {
+            "activity_id": "1",
+            "activity_name": "ยกระดับทักษะดิจิทัลของบุคลากรทุกระดับ",
+            "target_group": "บุคลากรในหน่วยงาน",
+            "responsible_person": "คณะทำงานพัฒนาทักษะด้านดิจิทัล",
+            "expected_outcome": "เจ้าหน้าที่สามารถใช้เครื่องมือดิจิทัลพื้นฐานได้อย่างมั่นใจ, ลดข้อผิดพลาดจากการใช้ระบบงานดิจิทัล, เพิ่มประสิทธิภาพการทำงานและการสื่อสารภายในหน่วยงาน"
+          },
+          {
+            "activity_id": "2",
+            "activity_name": "พัฒนาทักษะเชิงลึกด้าน Data Analytics และ AI",
+            "target_group": "คณะทำงาน Data Steward และบุคลากรที่เกี่ยวข้อง",
+            "responsible_person": "คณะทำงานพัฒนาทักษะด้านดิจิทัล",
+            "expected_outcome": "เจ้าหน้าที่สามารถวิเคราะห์ข้อมูลเพื่อสนับสนุนการตัดสินใจ"
+          }
+        ]
+      },
+      {
+        "indicator_name": "บริการภาครัฐ (Public Service)",
+        "activities": [
+          {
+            "activity_id": "1",
+            "activity_name": "พัฒนา Digital Service Platform R-K-I + Knowledge Mapping",
+            "target_group": null,
+            "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
+            "expected_outcome": "มี Support System ใน R-K-I Ecosystem"
+          },
+          {
+            "activity_id": "2",
+            "activity_name": "ประเมินการรับรู้บริการ และ feedback ด้านประโยชน์ในการใช้งานระบบ",
+            "target_group": "กลุ่มลูกค้าผู้ใช้งาน Platform R-K-I",
+            "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
+            "expected_outcome": "มีการปรับปรุงระบบเพื่อตอบสนองความต้องการของผู้ใช้งานมากขึ้น"
+          }
+        ]
+      },
+      {
+        "indicator_name": "การบริหารจัดการรูปแบบดิจิทัล (Smart Back Office)",
+        "activities": [
+          {
+            "activity_id": "1",
+            "activity_name": "พัฒนา AI Integrated Workflow Sandbox",
+            "target_group": null,
+            "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
+            "expected_outcome": "เพิ่มประสิทธิภาพการทำงานในหน่วยงาน"
+          }
+        ]
+      },
+      {
+        "indicator_name": "โครงสร้างพื้นฐานความมั่นคงปลอดภัยและมีประสิทธิภาพ (Secure and Efficient Infrastructure)",
+        "activities": [
+          {
+            "activity_id": "1",
+            "activity_name": "การจัดการข้อมูลและระบบสำรอง (Data Governance & Backup Systems)",
+            "target_group": null,
+            "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
+            "expected_outcome": "มีระบบสำรองข้อมูลที่สามารถกู้คืนได้"
+          },
+          {
+            "activity_id": "2",
+            "activity_name": "การเสริมสร้างความมั่นคงปลอดภัยไซเบอร์ (Cybersecurity Enhancement)",
+            "target_group": null,
+            "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
+            "expected_outcome": "ลดจำนวนการถูกโจมตีทางไซเบอร์"
+          }
+        ]
+      },
+      {
+        "indicator_name": "เทคโนโลยีดิจิทัลและการนำไปใช้ (Digital Technology Practices)",
+        "activities": [
+          {
+            "activity_id": "1",
+            "activity_name": "สนับสนุนเทคโนโลยี และนวัตกรรมใหม่ใน R-K-I Ecosystem",
+            "target_group": null,
+            "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
+            "expected_outcome": "มีผลงานใน R-K-I Ecosystem มากขึ้น และมีการใช้ประโยชน์เพิ่มขึ้น"
+          },
+          {
+            "activity_id": "2",
+            "activity_name": "Local AI for R-K-I Support System",
+            "target_group": null,
+            "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
+            "expected_outcome": "ระบบจัดการฐานข้อมูลอัจฉริยะ"
+          }
+        ]
+      }
+    ]
+  }
+}

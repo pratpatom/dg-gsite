@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แผนความพร้อมรัฐบาลดิจิทัล - กองนวัตกรรมและวิจัย</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div id="app">
+        <!-- Header -->
+        <header class="bg-white shadow-lg border-b-4 border-blue-600">
+            <div class="container mx-auto px-6 py-8">
+                <h1 class="text-4xl font-bold text-gray-800 mb-2">แผนความพร้อมรัฐบาลดิจิทัล</h1>
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between text-gray-600">
+                    <p class="text-lg mb-2 md:mb-0">
+                        <span class="font-semibold">หน่วยงาน:</span> {{ planData.unit }}
+                    </p>
+                    <p class="text-lg">
+                        <span class="font-semibold">ระยะเวลา:</span> {{ planData.plan_period }}
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-6 py-8">
+            <!-- Loading State -->
+            <div v-if="loading" class="flex justify-center items-center h-64">
+                <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600"></div>
+            </div>
+
+            <!-- Error State -->
+            <div v-if="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                <p class="font-semibold">เกิดข้อผิดพลาด:</p>
+                <p>{{ error }}</p>
+            </div>
+
+            <!-- Indicators Grid -->
+            <div v-if="!loading && !error" class="space-y-8">
+                <div v-for="(indicator, index) in planData.indicators" :key="index" class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <!-- Section Header -->
+                    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4">
+                        <h2 class="text-xl font-semibold text-white">
+                            {{ indicator.indicator_name }}
+                        </h2>
+                        <p class="text-blue-100 text-sm mt-1">
+                            {{ indicator.activities.length }} กิจกรรม
+                        </p>
+                    </div>
+
+                    <!-- Activities Cards -->
+                    <div class="p-6">
+                        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                            <div v-for="activity in indicator.activities" :key="activity.activity_id" 
+                                 class="bg-gray-50 border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow duration-200">
+                                
+                                <!-- Activity Header -->
+                                <div class="flex items-start justify-between mb-4">
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                        กิจกรรมที่ {{ activity.activity_id }}
+                                    </span>
+                                </div>
+
+                                <!-- Activity Name -->
+                                <h3 class="font-semibold text-gray-800 mb-4 leading-relaxed">
+                                    {{ activity.activity_name }}
+                                </h3>
+
+                                <!-- Activity Details -->
+                                <div class="space-y-3 text-sm">
+                                    <!-- Target Group -->
+                                    <div v-if="activity.target_group" class="flex items-start">
+                                        <span class="inline-block w-20 flex-shrink-0 font-medium text-gray-600">กลุ่มเป้าหมาย:</span>
+                                        <span class="text-gray-700">{{ activity.target_group }}</span>
+                                    </div>
+
+                                    <!-- Responsible Person -->
+                                    <div class="flex items-start">
+                                        <span class="inline-block w-20 flex-shrink-0 font-medium text-gray-600">ผู้รับผิดชอบ:</span>
+                                        <span class="text-gray-700">{{ activity.responsible_person }}</span>
+                                    </div>
+
+                                    <!-- Expected Outcome -->
+                                    <div class="pt-2 border-t border-gray-200">
+                                        <span class="block font-medium text-gray-600 mb-2">ผลที่คาดหวัง:</span>
+                                        <p class="text-gray-700 leading-relaxed">{{ activity.expected_outcome }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-6 mt-12">
+            <div class="container mx-auto px-6 text-center">
+                <p>&copy; 2025 กองนวัตกรรมและวิจัย - แผนความพร้อมรัฐบาลดิจิทัล</p>
+            </div>
+        </footer>
+    </div>
+
+    <script type="module">
+        const { createApp, ref, onMounted } = Vue;
+
+        createApp({
+            setup() {
+                const planData = ref({
+                    unit: '',
+                    plan_period: '',
+                    indicators: []
+                });
+                const loading = ref(true);
+                const error = ref(null);
+
+                const loadPlanData = async () => {
+                    try {
+                        const response = await fetch('./data/strategic_plan.json');
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const data = await response.json();
+                        
+                        if (data.digital_readiness_plan) {
+                            planData.value = {
+                                unit: data.digital_readiness_plan.unit,
+                                plan_period: data.digital_readiness_plan.plan_period,
+                                indicators: data.digital_readiness_plan.indicators
+                            };
+                        } else {
+                            throw new Error('Invalid data structure');
+                        }
+                    } catch (err) {
+                        error.value = 'ไม่สามารถโหลดข้อมูลแผนยุทธศาสตร์ได้: ' + err.message;
+                        console.error('Error loading strategic plan data:', err);
+                    } finally {
+                        loading.value = false;
+                    }
+                };
+
+                onMounted(() => {
+                    loadPlanData();
+                });
+
+                return {
+                    planData,
+                    loading,
+                    error
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
