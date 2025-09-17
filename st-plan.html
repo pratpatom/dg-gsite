@@ -124,7 +124,7 @@
 
                 const loadPlanData = async () => {
                     try {
-                        const response = await fetch('./data/strategic_plan.json');
+                        const response = await fetch('https://raw.githubusercontent.com/pratpatom/dg-gsite/refs/heads/dev/data/strategic_plan.json');
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
                         }
