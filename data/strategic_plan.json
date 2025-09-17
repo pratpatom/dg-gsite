@@ -11,14 +11,16 @@
             "activity_name": "กำหนดนโยบายและแนวปฏิบัติของหน่วยงานตามกรอบการดำเนินงานพัฒนารัฐบาลดิจิทัล",
             "target_group": "คณะทำงานที่เกี่ยวข้อง",
             "responsible_person": "คณะทำงานด้านนโยบายและงานบริหาร",
-            "expected_outcome": "หน่วยงานมีนโยบายดิจิทัลที่ชัดเจน และสามารถสื่อสารให้ทุกฝ่ายเข้าใจตรงกัน"
+            "expected_outcome": "หน่วยงานมีนโยบายดิจิทัลที่ชัดเจน และสามารถสื่อสารให้ทุกฝ่ายเข้าใจตรงกัน",
+            "tasks": null
           },
           {
             "activity_id": "2",
             "activity_name": "กำกับติดตามประเมินผลแผนความพร้อมรัฐบาลดิจิทัลของหน่วยงาน (Monitoring & Evaluation)",
             "target_group": "คณะทำงานที่เกี่ยวข้อง",
             "responsible_person": "คณะทำงานด้านนโยบายและงานบริหาร",
-            "expected_outcome": "ตรวจสอบความก้าวหน้า ของการดำเนินงานตามแผนพัฒนารัฐบาลดิจิทัลได้อย่างเป็นระบบและต่อเนื่อง"
+            "expected_outcome": "ตรวจสอบความก้าวหน้า ของการดำเนินงานตามแผนพัฒนารัฐบาลดิจิทัลได้อย่างเป็นระบบและต่อเนื่อง",
+            "tasks": null
           }
         ]
       },
@@ -30,21 +32,77 @@
             "activity_name": "สร้าง Data-Driven Culture ในหน่วยงาน(พัฒนา Data Steward ประจำกลุ่มงาน)",
             "target_group": "ทุกกลุ่มงาน",
             "responsible_person": "คณะทำงาน Data Steward",
-            "expected_outcome": "กลุ่มงานต่าง ๆ มีการแลกเปลี่ยนข้อมูลและทำงานร่วมกันมากขึ้น เพื่อบรรลุเป้าหมายร่วมกัน"
+            "expected_outcome": "กลุ่มงานต่าง ๆ มีการแลกเปลี่ยนข้อมูลและทำงานร่วมกันมากขึ้น เพื่อบรรลุเป้าหมายร่วมกัน",
+            "tasks": [
+              {
+                "Task": "Workshop: Generative AI สำหรับ Data Stewards",
+                "TaskPriority": "P2",
+                "Start date": "10/1/2025",
+                "End date": "10/20/2025",
+                "Responsible person": "Pratpatom Saipruek",
+                "Status": "Not started",
+                "Expected outcome": "คณะทำงานมีทักษะการใช้ AI สร้าง Data Dict and Dashboard",
+                "Deliverable": null
+              }
+            ]
           },
           {
             "activity_id": "2",
             "activity_name": "สร้างกรอบการจัดการข้อมูลที่มีประสิทธิภาพภายในหน่วยงาน",
             "target_group": "ทุกกลุ่มงาน",
             "responsible_person": "คณะทำงาน Data Steward และ Data Protection",
-            "expected_outcome": "มีมาตรฐานการจัดเก็บ จัดการ การใช้ข้อมูล และตรวจสอบคุณภาพข้อมูล"
+            "expected_outcome": "มีมาตรฐานการจัดเก็บ จัดการ การใช้ข้อมูล และตรวจสอบคุณภาพข้อมูล",
+            "tasks": [
+              {
+                "Task": "เชื่อมโยงข้แมูล DRDS และ NRIIS ที่เกี่ยวข้องกับตัวชี้วัด R-K-I",
+                "TaskPriority": "P3",
+                "Start date": "9/2/2025",
+                "End date": "3/1/2026",
+                "Responsible person": "Pratpatom Saipruek",
+                "Status": "Not started",
+                "Expected outcome": "ชุดข้อมูลเพื่อรายงานตัวชี้วัด R-K-I",
+                "Deliverable": "ชุดข้อมูลเพื่อรายงานตัวชี้วัด R-K-I"
+              },
+              {
+                "Task": "จัดทำ Data Dictionary ของทุกชุดข้อมูล",
+                "TaskPriority": "P1",
+                "Start date": "10/1/2025",
+                "End date": "10/31/2025",
+                "Responsible person": null,
+                "Status": null,
+                "Expected outcome": null,
+                "Deliverable": null
+              },
+              {
+                "Task": "จัดลำดับความสำคัญ การออก Dashboard 18 ชุดข้อมูล",
+                "TaskPriority": "P1",
+                "Start date": "10/1/2025",
+                "End date": "9/30/2026",
+                "Responsible person": null,
+                "Status": null,
+                "Expected outcome": null,
+                "Deliverable": null
+              }
+            ]
           },
           {
             "activity_id": "3",
             "activity_name": "พัฒนา Data Infrastructure และการวิเคราะห์ข้อมูล",
             "target_group": null,
             "responsible_person": "คณะทำงาน Data Steward",
-            "expected_outcome": "มี Data Lake/ Data Warehouse รองรับข้อมูลทั้งในและนอกหน่วยงานมี Real-time Analytics"
+            "expected_outcome": "มี Data Lake/ Data Warehouse รองรับข้อมูลทั้งในและนอกหน่วยงานมี Real-time Analytics",
+            "tasks": [
+              {
+                "Task": "ออกแบบ Data Visualization สำหรับข้อมูล DDC Clearance",
+                "TaskPriority": "P3",
+                "Start date": "9/2/2025",
+                "End date": "3/1/2026",
+                "Responsible person": "bbpbenyapa@gmail.com",
+                "Status": "Not started",
+                "Expected outcome": "Dashboard เพื่อนำเสนอข้อมูล DDC Clearance ในระดับ กรม กอง กลุ่มงาน",
+                "Deliverable": null
+              }
+            ]
           }
         ]
       },
@@ -56,14 +114,16 @@
             "activity_name": "ยกระดับทักษะดิจิทัลของบุคลากรทุกระดับ",
             "target_group": "บุคลากรในหน่วยงาน",
             "responsible_person": "คณะทำงานพัฒนาทักษะด้านดิจิทัล",
-            "expected_outcome": "เจ้าหน้าที่สามารถใช้เครื่องมือดิจิทัลพื้นฐานได้อย่างมั่นใจ, ลดข้อผิดพลาดจากการใช้ระบบงานดิจิทัล, เพิ่มประสิทธิภาพการทำงานและการสื่อสารภายในหน่วยงาน"
+            "expected_outcome": "เจ้าหน้าที่สามารถใช้เครื่องมือดิจิทัลพื้นฐานได้อย่างมั่นใจ, ลดข้อผิดพลาดจากการใช้ระบบงานดิจิทัล, เพิ่มประสิทธิภาพการทำงานและการสื่อสารภายในหน่วยงาน",
+            "tasks": null
           },
           {
             "activity_id": "2",
             "activity_name": "พัฒนาทักษะเชิงลึกด้าน Data Analytics และ AI",
             "target_group": "คณะทำงาน Data Steward และบุคลากรที่เกี่ยวข้อง",
             "responsible_person": "คณะทำงานพัฒนาทักษะด้านดิจิทัล",
-            "expected_outcome": "เจ้าหน้าที่สามารถวิเคราะห์ข้อมูลเพื่อสนับสนุนการตัดสินใจ"
+            "expected_outcome": "เจ้าหน้าที่สามารถวิเคราะห์ข้อมูลเพื่อสนับสนุนการตัดสินใจ",
+            "tasks": null
           }
         ]
       },
@@ -75,14 +135,16 @@
             "activity_name": "พัฒนา Digital Service Platform R-K-I + Knowledge Mapping",
             "target_group": null,
             "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
-            "expected_outcome": "มี Support System ใน R-K-I Ecosystem"
+            "expected_outcome": "มี Support System ใน R-K-I Ecosystem",
+            "tasks": null
           },
           {
             "activity_id": "2",
             "activity_name": "ประเมินการรับรู้บริการ และ feedback ด้านประโยชน์ในการใช้งานระบบ",
             "target_group": "กลุ่มลูกค้าผู้ใช้งาน Platform R-K-I",
             "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
-            "expected_outcome": "มีการปรับปรุงระบบเพื่อตอบสนองความต้องการของผู้ใช้งานมากขึ้น"
+            "expected_outcome": "มีการปรับปรุงระบบเพื่อตอบสนองความต้องการของผู้ใช้งานมากขึ้น",
+            "tasks": null
           }
         ]
       },
@@ -94,7 +156,8 @@
             "activity_name": "พัฒนา AI Integrated Workflow Sandbox",
             "target_group": null,
             "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
-            "expected_outcome": "เพิ่มประสิทธิภาพการทำงานในหน่วยงาน"
+            "expected_outcome": "เพิ่มประสิทธิภาพการทำงานในหน่วยงาน",
+            "tasks": null
           }
         ]
       },
@@ -106,14 +169,16 @@
             "activity_name": "การจัดการข้อมูลและระบบสำรอง (Data Governance & Backup Systems)",
             "target_group": null,
             "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
-            "expected_outcome": "มีระบบสำรองข้อมูลที่สามารถกู้คืนได้"
+            "expected_outcome": "มีระบบสำรองข้อมูลที่สามารถกู้คืนได้",
+            "tasks": null
           },
           {
             "activity_id": "2",
             "activity_name": "การเสริมสร้างความมั่นคงปลอดภัยไซเบอร์ (Cybersecurity Enhancement)",
             "target_group": null,
             "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
-            "expected_outcome": "ลดจำนวนการถูกโจมตีทางไซเบอร์"
+            "expected_outcome": "ลดจำนวนการถูกโจมตีทางไซเบอร์",
+            "tasks": null
           }
         ]
       },
@@ -125,14 +190,16 @@
             "activity_name": "สนับสนุนเทคโนโลยี และนวัตกรรมใหม่ใน R-K-I Ecosystem",
             "target_group": null,
             "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
-            "expected_outcome": "มีผลงานใน R-K-I Ecosystem มากขึ้น และมีการใช้ประโยชน์เพิ่มขึ้น"
+            "expected_outcome": "มีผลงานใน R-K-I Ecosystem มากขึ้น และมีการใช้ประโยชน์เพิ่มขึ้น",
+            "tasks": null
           },
           {
             "activity_id": "2",
             "activity_name": "Local AI for R-K-I Support System",
             "target_group": null,
             "responsible_person": "คณะทำงานพัฒนาระบบสารสนเทศ",
-            "expected_outcome": "ระบบจัดการฐานข้อมูลอัจฉริยะ"
+            "expected_outcome": "ระบบจัดการฐานข้อมูลอัจฉริยะ",
+            "tasks": null
           }
         ]
       }

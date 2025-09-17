@@ -60,13 +60,23 @@
                     <div class="p-6">
                         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                             <div v-for="activity in indicator.activities" :key="activity.activity_id" 
-                                 class="bg-gray-50 border border-gray-200 rounded-lg p-5 hover:shadow-md transition-shadow duration-200">
+                                 class="bg-gray-50 border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-all duration-200 cursor-pointer transform hover:scale-105"
+                                 @click="openActivityModal(activity)">
                                 
                                 <!-- Activity Header -->
                                 <div class="flex items-start justify-between mb-4">
                                     <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
                                         กิจกรรมที่ {{ activity.activity_id }}
                                     </span>
+                                    <div class="flex items-center space-x-2">
+                                        <span v-if="activity.tasks && activity.tasks.length > 0" 
+                                              class="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
+                                            {{ activity.tasks.length }} งาน
+                                        </span>
+                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </div>
                                 </div>
 
                                 <!-- Activity Name -->
@@ -101,6 +111,111 @@
             </div>
         </main>
 
+        <!-- Activity Detail Modal -->
+        <div v-if="selectedActivity" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" @click="closeModal">
+            <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto" @click.stop>
+                <!-- Modal Header -->
+                <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 rounded-t-lg">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full">
+                                    กิจกรรมที่ {{ selectedActivity.activity_id }}
+                                </span>
+                                <span v-if="selectedActivity.tasks && selectedActivity.tasks.length > 0" 
+                                      class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
+                                    {{ selectedActivity.tasks.length }} งาน
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800 leading-relaxed">
+                                {{ selectedActivity.activity_name }}
+                            </h3>
+                        </div>
+                        <button @click="closeModal" class="text-gray-400 hover:text-gray-600 ml-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modal Content -->
+                <div class="p-6">
+                    <!-- Activity Information -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <div v-if="selectedActivity.target_group">
+                                <span class="font-medium text-gray-600">กลุ่มเป้าหมาย:</span>
+                                <p class="text-gray-800 mt-1">{{ selectedActivity.target_group }}</p>
+                            </div>
+                            <div>
+                                <span class="font-medium text-gray-600">ผู้รับผิดชอบ:</span>
+                                <p class="text-gray-800 mt-1">{{ selectedActivity.responsible_person }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="font-medium text-gray-600">ผลที่คาดหวัง:</span>
+                            <p class="text-gray-800 mt-1 leading-relaxed">{{ selectedActivity.expected_outcome }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Tasks Section -->
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2">
+                            รายการงาน (Tasks)
+                        </h4>
+                        
+                        <!-- No Tasks -->
+                        <div v-if="!selectedActivity.tasks || selectedActivity.tasks.length === 0" 
+                             class="text-center py-8 text-gray-500">
+                            <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <p class="text-lg font-medium mb-2">ยังไม่มีรายการงาน</p>
+                            <p class="text-sm">กิจกรรมนี้ยังไม่ได้กำหนดรายการงานย่อย</p>
+                        </div>
+
+                        <!-- Tasks List -->
+                        <div v-else class="space-y-3">
+                            <div v-for="(task, index) in selectedActivity.tasks" :key="index" 
+                                 class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-sm transition-shadow">
+                                <div class="flex items-start space-x-3">
+                                    <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-2 py-1 rounded-full mt-0.5">
+                                        งานที่ {{ index + 1 }}
+                                    </span>
+                                    <div class="flex-1">
+                                        <h5 class="font-medium text-gray-800 mb-2">{{ task.task_name || task.name || 'ไม่ระบุชื่องาน' }}</h5>
+                                        <p v-if="task.description" class="text-gray-600 text-sm leading-relaxed mb-3">
+                                            {{ task.description }}
+                                        </p>
+                                        <div v-if="task.deadline || task.status || task.assignee" class="flex flex-wrap gap-4 text-xs">
+                                            <span v-if="task.deadline" class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
+                                                กำหนดเสร็จ: {{ task.deadline }}
+                                            </span>
+                                            <span v-if="task.status" class="px-2 py-1 rounded"
+                                                  :class="getStatusClass(task.status)">
+                                                สถานะ: {{ getStatusText(task.status) }}
+                                            </span>
+                                            <span v-if="task.assignee" class="bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                                                ผู้รับผิดชอบ: {{ task.assignee }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="border-t border-gray-200 px-6 py-4">
+                    <button @click="closeModal" class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                        ปิด
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- Footer -->
         <footer class="bg-gray-800 text-white py-6 mt-12">
             <div class="container mx-auto px-6 text-center">
@@ -121,6 +236,7 @@
                 });
                 const loading = ref(true);
                 const error = ref(null);
+                const selectedActivity = ref(null);
 
                 const loadPlanData = async () => {
                     try {
@@ -147,14 +263,79 @@
                     }
                 };
 
+                const openActivityModal = (activity) => {
+                    selectedActivity.value = activity;
+                    document.body.style.overflow = 'hidden';
+                };
+
+                const closeModal = () => {
+                    selectedActivity.value = null;
+                    document.body.style.overflow = 'auto';
+                };
+
+                const getStatusClass = (status) => {
+                    switch (status?.toLowerCase()) {
+                        case 'completed':
+                        case 'เสร็จแล้ว':
+                        case 'สำเร็จ':
+                            return 'bg-green-100 text-green-800';
+                        case 'in_progress':
+                        case 'กำลังดำเนินการ':
+                        case 'ดำเนินการ':
+                            return 'bg-blue-100 text-blue-800';
+                        case 'pending':
+                        case 'รอดำเนินการ':
+                        case 'รอ':
+                            return 'bg-yellow-100 text-yellow-800';
+                        case 'cancelled':
+                        case 'ยกเลิก':
+                            return 'bg-red-100 text-red-800';
+                        default:
+                            return 'bg-gray-100 text-gray-800';
+                    }
+                };
+
+                const getStatusText = (status) => {
+                    switch (status?.toLowerCase()) {
+                        case 'completed':
+                            return 'เสร็จแล้ว';
+                        case 'in_progress':
+                            return 'กำลังดำเนินการ';
+                        case 'pending':
+                            return 'รอดำเนินการ';
+                        case 'cancelled':
+                            return 'ยกเลิก';
+                        default:
+                            return status || 'ไม่ระบุ';
+                    }
+                };
+
                 onMounted(() => {
                     loadPlanData();
+                    
+                    // Handle ESC key to close modal
+                    const handleEscape = (event) => {
+                        if (event.key === 'Escape' && selectedActivity.value) {
+                            closeModal();
+                        }
+                    };
+                    document.addEventListener('keydown', handleEscape);
+                    
+                    // Cleanup on unmount
+                    return () => {
+                        document.removeEventListener('keydown', handleEscape);
+                    };
                 });
 
                 return {
                     planData,
                     loading,
-                    error
+                    error,
+                    selectedActivity,
+                    openActivityModal,
+                    closeModal,
+                    getStatusClass,
+                    getStatusText
                 };
             }
         }).mount('#app');
