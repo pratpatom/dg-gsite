@@ -184,7 +184,7 @@
                                         งานที่ {{ index + 1 }}
                                     </span>
                                     <div class="flex-1">
-                                        <h5 class="font-medium text-gray-800 mb-2">{{ task.task_name || task.name || 'ไม่ระบุชื่องาน' }}</h5>
+                                        <h5 class="font-medium text-gray-800 mb-2">{{ task.Task || task.task_name || task.name || 'ไม่ระบุชื่องาน' }}</h5>
                                         <p v-if="task.description" class="text-gray-600 text-sm leading-relaxed mb-3">
                                             {{ task.description }}
                                         </p>

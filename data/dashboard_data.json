@@ -1,0 +1,167 @@
+{
+  "title": "รายงานความก้าวหน้าโครงการ",
+  "overview": {
+    "title": "ภาพรวม 9 เดือน",
+    "metrics": [
+      {
+        "label": "ความก้าวหน้าโครงการ",
+        "value": "78%",
+        "progress": 78
+      },
+      {
+        "label": "กิจกรรมที่ดำเนินการ",
+        "value": "10/12",
+        "progress": 78
+      },
+      {
+        "label": "การประชุมติดตามความก้าวหน้า",
+        "value": "8/15",
+        "progress": 53
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "high-impact-research",
+      "title": "Data visualization โปรแกรมวิจัยมุ่งเป้า",
+      "subtitle": "กิจกรรมในรอบ 6 เดือน",
+      "dashboardUrl": "https://jolly-tree-0d742aa1e.4.azurestaticapps.net/",
+      "stages": [
+        {
+          "number": 1,
+          "title": "รวบรวม requirement",
+          "status": "done",
+          "progress": 100
+        },
+        {
+          "number": 2,
+          "title": "พัฒนา data visualization โปรแกรมวิจัยมุ่งเป้า",
+          "status": "done",
+          "progress": 100
+        },
+        {
+          "number": 3,
+          "title": "นำเสนอ Data visualization ให้ผู้รับผิดชอบงาน",
+          "status": "done",
+          "progress": 100
+        },
+        {
+          "number": 4,
+          "title": "เชื่อมโยงระบบจัดการข้อมูล",
+          "status": "done",
+          "progress": 100
+        },
+        {
+          "number": 5,
+          "title": "รายงานคณะกรรมการบริหาร",
+          "status": "done",
+          "progress": 100
+        },
+        {
+          "number": 6,
+          "title": "เผยแพร่ Data visualization",
+          "status": "in-progress",
+          "progress": 80
+        }
+      ]
+    },
+    {
+      "id": "ucbp-ddc",
+      "title": "Data visualization UCBP-DDC",
+      "subtitle": "กิจกรรมในรอบ 6 เดือน",
+      "stages": [
+        {
+          "number": 1,
+          "title": "รวบรวม requirement",
+          "status": "done",
+          "progress": 100
+        },
+        {
+          "number": 2,
+          "title": "พัฒนา data visualization UCBP-DDC",
+          "status": "in-progress",
+          "progress": 50
+        },
+        {
+          "number": 3,
+          "title": "นำเสนอ Data visualization ให้ผู้รับผิดชอบงาน",
+          "status": "in-progress",
+          "progress": 25
+        },
+        {
+          "number": 4,
+          "title": "เชื่อมโยงระบบจัดการข้อมูล",
+          "status": "in-progress",
+          "progress": 25
+        },
+        {
+          "number": 5,
+          "title": "รายงานคณะกรรมการบริหาร",
+          "status": "pending",
+          "progress": 0
+        },
+        {
+          "number": 6,
+          "title": "เผยแพร่ Data visualization",
+          "status": "pending",
+          "progress": 0
+        }
+      ]
+    }
+  ],
+  "successFactors": [
+    {
+      "title": "ปัจจัยความสำเร็จที่สำคัญ",
+      "items": [
+        {
+          "category": "ด้านบุคลากร",
+          "description": "ทักษะการเขียนโปรแกรมของทีมที่เพิ่มมากขึ้น"
+        },
+        {
+          "category": "ด้านเทคโนโลยี",
+          "description": "ใช้เทคโนโลยีที่เป็นที่ยอมรับ มีแหล่งศึกษาข้อมูลจำนวนมาก และการใช้ Automation deploy process"
+        }
+      ]
+    },
+    {
+      "title": "อุปสรรค",
+      "items": [
+        {
+          "category": "ความท้าทาย",
+          "description": "1. การเพิ่ม Interaction ให้กับ Data visualization\n2. ความรวดเร็วในการแก้ไข Data visualization"
+        }
+      ]
+    }
+  ],
+  "quarterPlan": {
+    "title": "แผนการดำเนินงานไตรมาส 3",
+    "sections": [
+      {
+        "title": "Data visualization",
+        "activities": [
+          {
+            "category": "ประชาสัมพันธ์",
+            "description": "ประชาสมพันธ์ช่องทางการใช้งาน Data visualization: DRDS, โปรแกรมมุ่งเป้า และ UCBP-DDC ผ่านสื่อออนไลน์ และหนังสือราชการ"
+          },
+          {
+            "category": "จัดทำแบบประเมินความพึงพอใจ",
+            "description": "จัดทำแบบประเมินความพึงพอใจ Data visualization: DRDS, มุ่งเป้า, และ UCBP-DDC"
+          },
+          {
+            "category": "สำรวจความพึงพอใจและวิเคราะห์ข้อมูล",
+            "description": "สำรวจความพึงพอใจจากผู้ใช้งานภายในกอง และวิเคราะห์ข้อมูล"
+          }
+        ]
+      },
+      {
+        "title": "ปรับปรุงระบบ DRDS",
+        "activities": [
+          {
+            "category": "จัดประชุมหารือแนวทางการพัฒนา",
+            "description": "จัดทำวาระและประสานจัดประชุมภายในเดือนมิถุนายน"
+          }
+        ]
+      }
+    ]
+  }
+}
